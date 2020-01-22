@@ -1,20 +1,9 @@
 {
-  "name": "seminario-4",
-  "version": "1.0.0",
+  "name": "socket-chat-example",
+  "version": "0.0.1",
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^1.7.4"
-  },
-  "main": "index.js",
-  "scripts": {
-    "test": "node index.js"
-  },
-  "keywords": [
-    "socket.io",
-    "chat",
-    "node"
-  ],
-  "author": "Jorge Ibáñez Felipe",
-  "license": "MIT"
+  }
 }

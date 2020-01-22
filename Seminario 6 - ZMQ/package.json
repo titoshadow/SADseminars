@@ -8,7 +8,7 @@
   "description": "ZeroMQ Cart",
   "main": "broker.js",
   "scripts": {
-    "test": "node broker.js && node worker.js && node client.js"
+    "test": "node broker.js && node worker.js"
   },
   "keywords": [
     "zeromq",
