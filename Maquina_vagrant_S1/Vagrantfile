@@ -1,0 +1,9 @@
+Vagrant.configure(2) do |config|
+  config.vm.box = "mongonode"
+  config.vm.hostname ="NodeEx"
+  config.vm.provision "shell", path: "provision.sh" 
+
+  config.vm.network "forwarded_port", guest:27017, host:8100, id: "Mongodb"
+  config.vm.network "forwarded_port", guest:28017, host:8101, id: "MongodbREST"
+
+end

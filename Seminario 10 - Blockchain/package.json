@@ -1,0 +1,26 @@
+{
+  "name": "forum-sad",
+  "version": "0.0.1",
+  "description": "SAD lab forum practice",
+  "scripts": {
+    "server1": "HTTP_PORT=3001 P2P_PORT=6001 PEERS=ws://localhost:6002 node dmserver.js 9001 5551 tcp://127.0.0.1:5552,tcp://127.0.0.1:5553",
+    "foro1": "node forum.js 10001 9001 tcp://127.0.0.1:5551",
+    "server2": "HTTP_PORT=3002 P2P_PORT=6002 PEERS=ws://localhost:6001 node dmserver.js 9002 5552 tcp://127.0.0.1:5551,tcp://127.0.0.1:5553",
+    "foro2": "node forum.js 10002 9002 tcp://127.0.0.1:5552",
+    "server3": "HTTP_PORT=3003 P2P_PORT=6003 PEERS=ws://localhost:6002 node dmserver.js 9003 5553 tcp://127.0.0.1:5551,tcp://127.0.0.1:5552",
+    "foro3": "node forum.js 10003 9003 tcp://127.0.0.1:5553",
+    "nodo4": "HTTP_PORT=3004 P2P_PORT=6004 PEERS=ws://localhost:6001 node blockchain.js",
+    "nodo5": "HTTP_PORT=3005 P2P_PORT=6005 PEERS=ws://localhost:6004 node blockchain.js",
+    "nodo": "node blockchain.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "socket.io": "^1.0.2",
+    "ws": "^6.1.2",
+    "zeromq": "^5.1.0",
+    "zmq": "^2.15.3"
+  }
+}
