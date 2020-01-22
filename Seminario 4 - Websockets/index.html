@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font: 13px Helvetica, Arial;
+    }
+
+    form {
+      background: #ccc;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
+
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
+
+    form#usersForm {
+      background: #AECB64;
+      padding: 3px;
+      top: 0;
+      width: 240px;
+      height: 35%;
+    }
+
+    div#users {
+      background: #ccc;
+      padding: 3px;
+      bottom: 0;
+      position: fixed;
+      width: 240px;
+      height: 65%;
+    }
+
+    div#c {
+      right: 0;
+      position: fixed;
+      width: 20%;
+      height: 100%;
+      background: #ccc;
+      padding: 10px;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages li {
+      padding: 5px 10px;
+    }
+
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+
+    #usersList {
+      list-style-type: circle;
+      margin: 0;
+      padding: 0;
+      font: 20px Helvetica, Arial;
+      text-align: center;
+    }
+
+    #name {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      font: bold 32px Helvetica, Arial;
+      text-align: center;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <div id="column" style="display: flex; position: relative;">
+    <form id="usersForm">
+      <table style="width:100%">
+        <tr>
+          <th id="currentUser">Unknown user</th>
+          <ul id="actualUser"></ul>
+        </tr>
+      </table>
+      <div style="padding: 1rem;" class="usernameInput">
+        <p>Username:</p>
+        <input id="usernameInput" style="width: 100%;">
+      </div>
+      <div style="display: grid; justify-content: center;">
+        <button id="sendUsernameButton" style="width: 100%">Log in</button>
+      </div>
+    </form>
+    <div id="users">
+      <p style="padding: 0.5rem">Connected users:</p>
+      <ul id="usersList"></ul>
+    </div>
+  </div>
+  <div style="margin-left: 15rem; position: relative;">
+    <ul id="messages"></ul>
+  </div>
+  <small id="userTyping" style="margin-left: 15.25rem; bottom: 2.75rem; position:absolute"></small>
+  <form id="messageForm" action="">
+    <input id="m" autocomplete="off" /><button id="sendMessage">Send</button>
+  </form>
+
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+
+    $(document).ready(function () {
+      $('#m').prop("disabled", true);
+      $('#sendMessage').attr("disabled", true);
+    });
+
+    var socket = io();
+    var messageBox = document.getElementById('m');
+    let timeout;
+    let user;
+
+    function timeoutFunction() {
+      socket.emit("typing", false);
+    }
+
+    $('#usersForm').submit(function () {
+      user = $('#usernameInput').val();
+      socket.emit('login', user);
+      $('#sendUsernameButton').attr("disabled", true);
+      $('#usersList').append('<ul>' + user + '</ul>');
+      $('#usernameInput').prop("disabled", true);
+      $('#currentUser').text('Logged as: ' + user);
+      $('#usernameInput').val('');
+      $('#m').prop("disabled", false);
+      $('#sendMessage').attr("disabled", false);
+      return false;
+    });
+
+    $('#messageForm').submit(function () {
+      socket.emit('chat message', $('#m').val(), user);
+      $('#messages').append($('<li>').text(timestamp() + 'Me: ' + $('#m').val()));
+      $('#m').val('');
+      return false;
+    });
+
+    messageBox.addEventListener('keydown', function (key) {
+      if (key.keyCode == 13) {
+        socket.emit('stopTyping')
+        clearTimeout(timeout);
+        timeout = setTimeout(timeoutFunction, 2000);
+      }
+      else {
+        socket.emit('typing', user);
+        clearTimeout(timeout);
+        timeout = setTimeout(timeoutFunction, 2000);
+      }
+    });
+
+    socket.on('userTyping', function (user) {
+      if (user) {
+        $('#userTyping').addClass(user);
+        $('#userTyping').text(user + ' is typing...');
+      } else {
+        $('#userTyping').removeClass(user);
+        $('#userTyping').text('');
+      }
+    });
+
+    socket.on('userStopTyping', function (user) {
+      if (user == $('#userTyping').hasClass(user))
+        $('#userTyping').removeClass(user);
+      $('#userTyping').text('');
+    });
+
+    socket.on('chat message', function (msg) {
+      $('#messages').append($('<li>').text(msg));
+    });
+
+    socket.on('users list', function (msg) {
+      $('#usersList').empty();
+      for (i in msg) {
+        $('#usersList').append('<ul>' + msg[i] + '</ul>');
+      }
+    });
+
+    function timestamp() {
+      var date = new Date();
+      return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + ' - ';
+    }
+
+  </script>
+</body>
+
+
+
+</html>

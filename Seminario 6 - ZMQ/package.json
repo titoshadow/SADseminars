@@ -1,0 +1,19 @@
+{
+  "name": "seminario-6",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "zeromq": "^5.2.0"
+  },
+  "description": "ZeroMQ Cart",
+  "main": "broker.js",
+  "scripts": {
+    "test": "node broker.js && node worker.js && node client.js"
+  },
+  "keywords": [
+    "zeromq",
+    "cart"
+  ],
+  "author": "Jorge Ibáñez Felipe",
+  "license": "MIT"
+}

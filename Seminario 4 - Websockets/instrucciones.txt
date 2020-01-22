@@ -1,0 +1,6 @@
+Este entregable se basa en la actividad https://socket.io/get-started/chat/
+
+1.- Empezamos con 'npm install express socket.io' para instalar todas las dependencias necesarias
+
+	1.1.- Es posible que salte un error indicando que nos falta el Visual Studio 2019, con el paquete de desarrollo de C++.
+		Ni puto caso.

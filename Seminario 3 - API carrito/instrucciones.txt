@@ -1,0 +1,8 @@
+1.- Ejecutar 'node bin/run' 
+
+2.- Usar alguna aplicación (Postman?) que permita realizar llamadas GET, POST y DELETE a la dirección localhost:3000, con una sintaxis como la siguiente:
+
+POST http://localhost:3000/cart/1/5 --> Añadir 5 elementos del tipo 1 (palos)
+DELETE http://localhost:3000/cart/1/5 --> Eliminar 5 elementos del tipo 1 
+
+Todas las llamadas devuelven el carrito resultante.

@@ -1,0 +1,10 @@
+1.- Copiar el contenido de esta carpeta a una carpeta local, de modo que no usemos la copia de OneDrive (por seguridad, comodidad y rendimiento) - USA UN NOMBRE SENCILLO PARA LA CARPETA, SIN ESPACIOS NI CARACTERES ESPECIALES....
+
+2.- Ejecutar 'vagrant add --name mongonode package.box', si no lo hemos hecho ya, en un Terminal en la carpeta elegida.
+
+3.- Ejecutar 'vagrant up' para iniciar la máquina, que quedará preparada para trabajar, si la estamos lanzando por primera vez. 
+Si no la estamos lanzando por primera vez, deberemos ejecutar 'vagrant provision', que lanzará el script 'provision.sh' dentro de la máquina, que a su vez lanzará el MongoDB y quedará esperando conexiones.
+
+4.- Ejecutar 'node client.js' lanzará el carrito, inicializará el inventario en MongoDB y realizará algunas operaciones de añadido y eliminado de elementos.
+
+	4.1.- Si aparece un error indicando que no se encuentra determinado módulo, ejecuta 'npm i' para que se reinstalen en tu 		sistema los paquetes necesarios de Node (node_modules). Esto se aplica a todos los seminarios.

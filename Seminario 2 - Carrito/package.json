@@ -1,15 +1,15 @@
 {
-  "name": "seminario-5",
+  "name": "seminario-2",
   "version": "1.0.0",
-  "description": "Promises",
-  "main": "cart.js",
+  "description": "Node cart",
+  "main": "client.js",
   "dependencies": {
-    "q": "^1.5.1"
+    "mongodb": "^3.5.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "node client.js"
   },
   "author": "Jorge Ibáñez Felipe",
-  "license": "ISC"
+  "license": "MIT"
 }
